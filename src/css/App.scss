@@ -1,39 +1,6 @@
 @import "./variables";
 @import url('https://fonts.googleapis.com/css?family=Karla&display=swap');
 
-@mixin on-circle($item-count, $circle-size, $item-size) {
-  position: relative;
-  width:  $circle-size;
-  height: $circle-size;
-  padding: 0;
-  border-radius: 50%; 
-  list-style: none;       
-  
-  > * {
-    display: block;
-    position: absolute;
-    top:  50%; 
-    left: 50%;
-    width:  $item-size;
-    height: $item-size;
-    margin: -($item-size / 2);
-  
-    $angle: (360 / $item-count);
-    $rot: 0;
-
-    @for $i from 1 through $item-count {
-      &:nth-of-type(#{$i}) {
-        transform: 
-          rotate($rot * 1deg) 
-          translate($circle-size / 2) 
-          rotate($rot * -1deg);
-      }
-
-      $rot: $rot + $angle;
-    }
-  }
-}
-
 
 div#root {
   height: calc(100vh - 290px);
@@ -60,6 +27,7 @@ body {
       line-height: 8px;
     }
     .switcher {
+      display: flex;
       position: fixed;
       border-radius: 30px;
       right: 120px;
@@ -67,16 +35,27 @@ body {
       width: 130px;
       height: 40px;
       background-color: $chalky;
-      button {
-        // width: 50%;
-        display: none;
+      cursor: pointer;
+      .btn {
+        width: 46%;
         height: 100%;
-
+        position: relative;
+        left: 4px;
+        .choose {
+          background: $bizarre;
+          border-radius: 35px;
+          color: $tan;
+        }
+        p {
+          text-align: center;
+          position: relative;
+          padding: 5px 0;
+          top: -12px;
+        }
       }
     }
     .content {
       position: relative;
-      top: 20px;
       display: flex;
       .items {
         cursor: pointer;
@@ -84,9 +63,29 @@ body {
         font-size: 28px;
         line-height: 55px;
       }
-      .items-body {
-        font-size: 20px;
+      .content-right {
+        font-size: 16px;
         padding: 0 80px;
+        top: -45px;
+        position: relative;
+        height: 300px;
+        width: 415px;
+        .skills {
+          font-size: 20px;
+          line-height: 35px;
+        }
+        .experience {
+          font-size: 20px;
+          line-height: 35px;
+        }
+        .contact {
+          font-size: 20px;
+          line-height: 35px;
+          text-align: left;
+          a {
+            color: white;
+          }
+        }
       }
     }
     
@@ -103,11 +102,25 @@ body {
       display: flex;
       justify-content: space-around;
     }
-    .skills {
-      .circle-container {
-        @include on-circle($item-count: 7, $circle-size: 10em, $item-size: 4em); 
-      }
-    }
   }
 
+}
+
+@media (max-width:575px) {
+  .home {
+    padding: 100px 0;
+    .header {
+      font-size: 20px;
+      left: 0;
+      line-height: inherit;
+    }
+    .content {
+      .items li{
+        display: none;
+      }
+      // .content-right {
+      //   display: none;
+      // }
+    }
+  }
 }
